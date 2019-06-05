@@ -243,7 +243,7 @@
 ## 配置 package.json
 
 > ```json
-> //重要内容 注意  这样是不对的   json标准中不允许有配置
+> //重要内容 注意  这样是不对的   json标准中不允许有注释
 >  "scripts": {
 >     "build": "webpack",
 >     "dev": "webpack-dev-server --open --port 3000 --hot "
