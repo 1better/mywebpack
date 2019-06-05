@@ -4,7 +4,7 @@
 
 这是我根据b站webpack视频整理的，由于没有代码和笔记，就自己整理了一下，希望看到的人能够star一个哟
 
-视频源地址 [](<https://www.bilibili.com/video/av51693431?from=search&seid=7706093844445764758>)
+视频源地址 [<https://www.bilibili.com/video/av51693431?from=search&seid=7706093844445764758>]()
 
 ## webpack-go部分
 
