@@ -1,7 +1,8 @@
 //webpack自带一个express
-const express = require('express')
+let express = require('express')
 
 let app = express()
+
 let webpack = require('webpack')
 
 //需要使用中间件
@@ -13,7 +14,7 @@ let compiler = webpack(config)
 
 app.use(middle(compiler))
 
-app.get('/user',(req,res)=>{
+app.get('/api/user',(req,res)=>{
   res.json({
     name: 'myname222'
   })

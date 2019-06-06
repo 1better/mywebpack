@@ -25,6 +25,11 @@ const bannerPlugin = new webpack.BannerPlugin('make by hanke ,i will become succ
 // 3. bannerPlugin
 // 前两个 需要第三方模块 第三个内置
 
+
+// 判断开发环境的插件  DefinePlugin
+const definePlugin = new webpack.DefinePlugin({
+  DEV: JSON.stringify('production')
+})
 // 也可以传入一个数组 告诉清理哪些文件夹
 const cleanPlugin = new CleanWebpackPlugin()
 
@@ -97,13 +102,33 @@ module.exports = {
     cleanPlugin,
     // 复制插件
     copyPlugin,
-    // 内置插件
-    bannerPlugin
+    // 内置插件 添加注释
+    bannerPlugin,
+    // 内置插件 判断开发环境
+    definePlugin
   ],
+  //解析第三方模块 commen
+  resolve: {
+    //指定解析的模块
+    modules: [path.resolve('node_modules')],
+    //或者用 mainFields  入口的字段 先找style 再找main
+    // mainFiles: [],//入口文件的名字 默认找index.js
+    mainFields: ['style','main'],
+    //扩展名 可以省略 需配置 extensions  依次解析
+    extensions: ['.js','.css','.json']
+    //别名  如 vue的vue-runtime和那个@
+    // alias: {
+    //   bootstrap: 'bootstrap/dist/css/bootstrap.css'
+    // }
+  },
   module: {
     rules: [
       {
-        test: /\.js/,
+        test: /\.css$/,
+        use:['style-loader','css-loader']
+      },
+      {
+        test: /\.js$/,
         use: {
           loader: 'babel-loader',
           options: {

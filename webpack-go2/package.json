@@ -17,10 +17,13 @@
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-middleware": "^3.7.0",
-    "webpack-dev-server": "^3.5.1"
+    "webpack-dev-server": "^3.5.1",
+    "webpack-merge": "^4.2.1"
   }
 }

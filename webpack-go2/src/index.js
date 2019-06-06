@@ -5,13 +5,22 @@
 // }
 // // console.log('a')
 // var b = new B()
+// import 'bootstrap'
+// import './style'
+/* let xhr = new XMLHttpRequest()
 
-let xhr = new XMLHttpRequest()
-
-xhr.open('GET','/user',true)
+xhr.open('GET','/api/user',true)
 
 xhr.onload = function() {
   console.log(xhr.response)
 }
 
-xhr.send()
+xhr.send() */
+let url = ''
+if(DEV==='dev') {
+  url = 'localhost'
+}else {
+  url = 'hanke'
+}
+
+console.log(url)
