@@ -123,9 +123,9 @@
 > let compiler = webpack(config)
 > app.use(middle(compiler))
 > app.get('/api/user',(req,res)=>{
->   res.json({
->     name: 'myname222'
->   })
+>       res.json({
+>         name: 'myname222'
+>       })
 > })
 > app.listen(3500)
 > ```
@@ -358,6 +358,38 @@
 >     //有服务端，但是不用代理来处理 在服务器端开启webpack 端口用服务端端口
 >   }
 > }
+> ```
+>
+>  
+
+## index.js(测试用)
+
+> ```js
+> // class B {
+> //   constructor() {
+> //     console.log('11111')
+> //   }
+> // }
+> // // console.log('a')
+> // var b = new B()
+> // import 'bootstrap'
+> // import './style'
+> /* let xhr = new XMLHttpRequest()
+> 
+> xhr.open('GET','/api/user',true)
+> 
+> xhr.onload = function() {
+>   console.log(xhr.response)
+> }
+> 
+> xhr.send() */
+> let url = ''
+> if(DEV==='dev') {
+>   url = 'localhost'
+> }else {
+>   url = 'hanke'
+> }
+> console.log(url)
 > ```
 >
 > 
