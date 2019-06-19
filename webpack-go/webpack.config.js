@@ -56,12 +56,12 @@ module.exports = {
     //新版本这样压缩就可以了
     optPlugin,
     //用webpack的插件 在每个模块中 都注入 $
-    webpackPlugin
+    // webpackPlugin
   ],
   //引入jquery会忽略掉(已经在cdn引入了)
-  externals: {
+ /*  externals: {
     jquery: '$'
-  },
+  }, */
   module: {   //模块
     rules: [  
       //配置 html读取img的src
@@ -85,13 +85,13 @@ module.exports = {
           }
         }
       },
-     /*  {
+      {
         // 添加loader规则 就不再需要import $ from 'expose-loader?$!jquery' 这样 直接 import 
         // 这一步一直报错  这个方法显示未定义  不知道为什么 只好用第二个方法 导入插件了
         test: require.resolve('jquery'),
         use: 'expose-loader?$',
-        exclude: /node_modules/
-      }, */
+        // exclude: /node_modules/
+      },
       /* //校验js的  先关闭  最后用到 修改
       {
         test: /\.js$/,use:[

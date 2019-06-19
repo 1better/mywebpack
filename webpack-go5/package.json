@@ -1,0 +1,17 @@
+{
+  "name": "webpack-go5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babylon": "^6.18.0",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.3"
+  }
+}

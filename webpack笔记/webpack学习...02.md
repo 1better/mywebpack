@@ -45,7 +45,7 @@
 ## dev-tool的四个选项
 
 > ```js
->  //增加 devtool 源码映射 可以很方便的调试源代码  
+>  //  增加 devtool 源码映射 可以很方便的调试源代码  
 >  //  源码映射 单独生成一个 source-map文件 出错会标识出错的列和行 大和全
 >   devtool:'source-map',
 > 
@@ -63,14 +63,14 @@
 ## webpack跨域问题
 
 > ```js
-> //server.js 
-> //1
+> //  server.js 
+> //  1
 > const express = require('express')
 > let app = express()
 > app.get('/api/user',(req,res)=>{
 > res.json({
->  name: 'myname222'
-> })
+>  	name: 'myname222'
+> 	})
 > })
 > app.listen(3500)
 > //2
@@ -78,7 +78,7 @@
 > let app = express()
 > app.get('/user',(req,res)=>{
 > res.json({
->  name: 'myname222'
+>  	name: 'myname222'
 > })
 > })
 > app.listen(3500)
@@ -152,12 +152,12 @@
 > ```js
 > resolve: {
 >     //指定解析的模块
->     modules: [path.resolve('node_modules')],
->     //或者用 mainFields  入口的字段 先找style 再找main
+>     	modules: [path.resolve('node_modules')],
 >     // mainFiles: [],//入口文件的名字 默认找index.js
->     mainFields: ['style','main'],
+>     //或者用 mainFields  入口的字段 先找style 再找main
+>     	mainFields: ['style','main'],
 >     //扩展名 可以省略 需配置 extensions  依次解析
->     extensions: ['.js','.css','.json']
+>     	extensions: ['.js','.css','.json']
 >     //别名  如 vue的vue-runtime和那个@
 >     // alias: {
 >     //   bootstrap: 'bootstrap/dist/css/bootstrap.css'
@@ -174,13 +174,13 @@
 > let {smart} = require('webpack-merge')
 > let base = require('./webpack.config.js')
 > module.exports = smart(base,{
->   mode:'production'
+>   	mode:'production'
 > })
 > //webpack.dev.js
 > let {smart} = require('webpack-merge')
 > let base = require('./webpack.config.js')
 > module.exports = smart(base,{
->   mode:'development'
+>   	mode:'development'
 > })
 > ```
 >
@@ -219,14 +219,14 @@
 > 
 > // 判断开发环境的插件  DefinePlugin
 > const definePlugin = new webpack.DefinePlugin({
->   DEV: JSON.stringify('production')
+>   	DEV: JSON.stringify('production')
 > })
 > // 也可以传入一个数组 告诉清理哪些文件夹
 > const cleanPlugin = new CleanWebpackPlugin()
 > 
 > const htmlPlugin1 = new HtmlWpackPlugin({
 >   template: './src/index.html',
->   //多个 html
+>   //多个 html	
 >   filename: 'home.html',
 >   //代码块
 >   chunks: ['home']

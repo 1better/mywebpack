@@ -4,14 +4,16 @@
 //pre  post normal 
 
 // 暴露出去 下边是写法规范
-// import $ from 'expose-loader?$!jquery'
-// console.log($)
+// import $ from 'jquery'
+import $ from 'expose-loader?$!jquery'
+console.log($)
+console.log(window.$)
 //file-loader 图片引入 返回一个新图片地址
-import logo from './logo.jpg'
+/* import logo from './logo.jpg'
 console.log(logo)
 let img = new Image()
 img.src = logo
-document.body.appendChild(img)
+document.body.appendChild(img) */
 
 // require('@babel/polyfill')
 // require("./a.js");
@@ -19,7 +21,7 @@ document.body.appendChild(img)
 // console.log("ok");
 
 // require('./index.css')
-require('./index.less')
+// require('./index.less')
 
 // let fn = () => {
 //   console.log(2222)

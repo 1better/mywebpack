@@ -1,0 +1,18 @@
+{
+  "name": "hanke-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "hanke-webpack": "./bin/hanke-webpack.js"
+  },
+  "devDependencies": {
+    "babylon": "^6.18.0"
+  }
+}

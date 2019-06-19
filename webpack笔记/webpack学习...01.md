@@ -37,7 +37,7 @@
 > #安装 eslint eslint-loader 来校验js语法
 > cnpm i eslint eslint-loader -D
 > #安装 jquery 来 测试暴露全局的loader
-> cnpm i jquert -D
+> cnpm i jquery -D
 > #安装 expose-loader 来暴露全局
 > cnpm i expose-loader -D
 > #安装 file-loader 默认生成一张新的图片到build目录下 生成图片名字返回
@@ -54,29 +54,32 @@
 
 > ```js
 > const path = require("path");
+> // html挂载到内存的插件
 > const HtmlWebpackPlugin = require("html-webpack-plugin");
+> // 将css变成link引入的插件
 > const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+> // 压缩css的插件
 > const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 > const webpack = require('webpack')
 > 
 > const htmlPlugin = new HtmlWebpackPlugin({
-> template: './src/index.html' ,//模板
-> filename: 'index.html',
-> /* //压缩 html 
-> minify: {
-> //删除属性双引号
-> removeAttributeQuotes:true,
-> //变成一行
-> collapseWhitespace:true,
-> },
-> //有一个hash值
-> hash : true */
+>     template: './src/index.html' ,//模板
+>     filename: 'index.html',
+>     /* //压缩 html 
+>     minify: {
+>     //删除属性双引号
+>     removeAttributeQuotes:true,
+>     //变成一行
+>     collapseWhitespace:true,
+>     },
+>     //有一个hash值
+>     hash : true */
 > })
 > 
 > // 抽离css变为link引入的形式
 > const miniPlugin = new MiniCssExtractPlugin({
-> // 产生到css目录下
-> filename: 'css/main.css',
+>     // 产生到css目录下
+>     filename: 'css/main.css',
 > })
 > // 压缩css代码
 > const optPlugin = new OptimizeCSSAssetsPlugin()
@@ -94,12 +97,12 @@
 > 
 > /*  配置 html-webpack-plugin的第一种方法  一般不用  直接在package.json中配置就可以
 > devServer: {
->     //开发服务器的配置
->     port: 3000,
->     progress: true,
->     contentBase: "./src",
->     //启动gzip压缩
->     compress: true
+>  //开发服务器的配置
+>  port: 3000,
+>  progress: true,
+>  contentBase: "./src",
+>  //启动gzip压缩
+>  compress: true
 > }, */
 > mode: "development", //模式
 > entry: "./src/index.js", //入口
@@ -125,119 +128,120 @@
 > rules: [  
 > 	//配置 html读取img的src
 > {
->   test: /\.html$/,
->   use: 'html-withimg-loader'
+>     test: /\.html$/,
+>     use: 'html-withimg-loader'
 > },
 > 	//配置 file-loader来读取图片
 > {
->   test: /\.(png|jpg|gif)$/, 
->       //做一个限制  当小于多少k 用base64来转化 base64文件可以减少http请求 但是比原文件大3分之1
->       // 否则用file-loader来产生真实的图片
->   use: {
->     loader: 'url-loader',
->     options: {
->       limit: 1,
->       //输出的路径
->       outputPath: 'img/',
->       //只在图片中有一个公共的路径，在解析img的loader中单独配置
->       publicPath: 'http:/111'
+> 	test: /\.(png|jpg|gif)$/, 
+>    //做一个限制  当小于多少k 用base64来转化 base64文件可以减少http请求 但是比原文件大3分之1
+>    // 否则用file-loader来产生真实的图片
+>     use: {
+>      loader: 'url-loader',
+>      options: {
+>        limit: 1,
+>        //输出的路径
+>        outputPath: 'img/',
+>        //只在图片中有一个公共的路径，在解析img的loader中单独配置
+>        publicPath: 'http:/111'
+>      }
 >     }
->   }
 > },
->    /*  {
->       // 添加loader规则 就不再需要import $ from 'expose-loader?$!jquery' 这样 直接 import 
->       // 这一步一直报错  这个方法显示未定义  不知道为什么 只好用第二个方法 导入插件了
->       test: require.resolve('jquery'),
->       use: 'expose-loader?$',
->       exclude: /node_modules/
->     }, */
->     /* //校验js的  先关闭  最后用到 修改
->     {
->       test: /\.js$/,use:[
->         {
->           loader: 'eslint-loader',
->           options: {
->             //强制 pre 之前执行  post 之后  未设置为normal 普通的loader
->             enforce: 'pre'
->           }
->         }
->       ],
->       exclude: /node_modules/
->     }, */
+> /*  {
+>    // 添加loader规则 就不再需要import $ from 'expose-loader?$!jquery' 这样 直接 import 
+>    // 这一步一直报错  这个方法显示未定义  不知道为什么 只好用第二个方法 导入插件了
+>    // 哈哈哈 明白了  把下边的exclude去掉就可以了  因为它是在node_modules下边找的  这一步有点画蛇添足了，不能老是下意识地写exclude 还有 验证这个的时候把上边的 externals注释掉 不然出错
+>    test: require.resolve('jquery'),
+>    use: 'expose-loader?$',
+>    // 注释掉就ok了  exclude: /node_modules/
+>  }, */
+>  /* //校验js的  先关闭  最后用到 修改
+>  {
+>    test: /\.js$/,use:[
+>      {
+>        loader: 'eslint-loader',
+>        options: {
+>          //强制 pre 之前执行  post 之后  未设置为normal 普通的loader
+>          enforce: 'pre'
+>        }
+>      }
+>    ],
+>    exclude: /node_modules/
+>  }, */
 > 
->     //规则    css-loader 处理css文件 解析@import这种语法
->     // style-loader  把css标签插入到header中
->     // loader的特点  单一
->     // loader的用法  字符串只用一个loader  多个需要数组
->     // loader 的顺序  默认从右到左执行 从下到上执行
->     /* 
->       test:/\.css$/, use:[
->       'style-loader'
->       ,'css-loader'] }
->     */
->     // 也可以写成对象,可以多传入一个参数
+>  //规则    css-loader 处理css文件 解析@import这种语法
+>  // style-loader  把css标签插入到header中
+>  // loader的特点  单一
+>  // loader的用法  字符串只用一个loader  多个需要数组
+>  // loader 的顺序  默认从右到左执行 从下到上执行
+>  /* 
+>    test:/\.css$/, use:[
+>    'style-loader'
+>    ,'css-loader'] }
+>  */
+>  // 也可以写成对象,可以多传入一个参数
 > { 
->   test:/\.css$/, use:[
->     {
->       loader:'style-loader',
->       options: {
->         //将style标签插入到顶部
->         insertAt: 'top'
->       }
->     },
->     'css-loader',
->       //为loader添加私有化前缀
->     'postcss-loader',
->   ] 
+> test:/\.css$/, use:[
+>  {
+>    loader:'style-loader',
+>    options: {
+>      //将style标签插入到顶部
+>      insertAt: 'top'
+>    }
+>  },
+>  'css-loader',
+>    //为loader添加私有化前缀
+>  'postcss-loader',
+> ] 
 > },
->     /* //配置less
->     { 
->       test:/\.less$/, use:[
->         {
->           loader:'style-loader',
->           options: {
->             //将style标签插入到顶部
->             insertAt: 'top'
->           }
->         },
->         'css-loader',
->         'less-loader' //less -> css
->       ] 
->     } */
+>  /* //配置less
+>  { 
+>    test:/\.less$/, use:[
+>      {
+>        loader:'style-loader',
+>        options: {
+>          //将style标签插入到顶部
+>          insertAt: 'top'
+>        }
+>      },
+>      'css-loader',
+>      'less-loader' //less -> css
+>    ] 
+>  } */
 > //抽离为
 > { 
->   test:/\.less$/, use:[
->     MiniCssExtractPlugin.loader,
->     'css-loader',
->     'postcss-loader',
->     'less-loader' //less -> css
->   ] 
+> test:/\.less$/, use:[
+>  MiniCssExtractPlugin.loader,
+>  'css-loader',
+>  'postcss-loader',
+>  'less-loader' //less -> css
+> ] 
 > },
 > /* 配置babel */
 > {
->   test: /\.js$/,
->   use: [
->     {
->       loader: 'babel-loader',
->       options: {
->         presets: [
->           '@babel/preset-env'
->         ],
->         plugins: [
->           // '@babel/plugin-proposal-class-properties'  解析class
->           // 上边边解析  @log
->           ["@babel/plugin-proposal-decorators", { "legacy": true }],
->           ['@babel/plugin-proposal-class-properties', { "loose": true}],
->           '@babel/plugin-transform-runtime'
->           
->         ]
->       }
->     }
->   ],
->   //包括
->   include: path.resolve(__dirname,'src'),
->   //排除
->   exclude: /node_modules/ 
+> test: /\.js$/,
+> use: [
+>  {
+>    loader: 'babel-loader',
+>    options: {
+>      presets: [
+>        '@babel/preset-env'
+>      ],
+>      plugins: [
+>        // '@babel/plugin-proposal-class-properties'  解析class
+>        // 上边边解析  @log
+>        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+>        ['@babel/plugin-proposal-class-properties', { "loose": true}],
+>        '@babel/plugin-transform-runtime'
+>        
+>      ]
+>    }
+>  }
+> ],
+> //包括
+> include: path.resolve(__dirname,'src'),
+> //排除
+> exclude: /node_modules/ 
 > }
 > ]
 > }
@@ -245,7 +249,7 @@
 > 
 > ```
 >
->  
+> 
 
 ## index.js(测试用)
 
@@ -373,23 +377,22 @@
 
 > ```shell
 > npx webpack --config webpack.config.my.js  
-> 
 > ```
->
-> 或者  **package.json中配置**
->
-> ```json
+> 
+>或者  **package.json中配置**
+> 
+>```json
 > "scripts": {
->  "build" : "webpack --config webpack.config.my.js"
-> }
+> "build" : "webpack --config webpack.config.my.js"
+>  }
 > //执行  npm run build  
 > "scripts": {
->  "build" : "webpack "
-> }
+> "build" : "webpack "
+>  }
 > //执行 npm run build -- --config webpack.config.my.js
 > ```
->
 > 
+>
 
 ## 引入第三方模块
 
@@ -417,3 +420,4 @@
 ## .eslintrc.json
 
 > 直接在eslint官网生成 
+
