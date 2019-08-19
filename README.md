@@ -64,4 +64,5 @@
 
 ## webpack学习到方法和思想
 > 突然发现要是这样整理下去的话会变得很多，就把它独立成一个项目了，更多的是面试中常见的问题，希望你们能给一个star哟
-> 链接 [](https://github.com/1better/fore-end)
+
+## 链接 [前端知识整理](https://github.com/1better/fore-end)
